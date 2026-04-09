@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="topbar" role="banner">
+    <label for="search" class="sr-only">Search for a country</label>
+    <input type="text" id="search" placeholder="Search country..." aria-label="Search for a country">
+
+    <label for="regionFilter" class="sr-only">Filter by region</label>
+    <select id="regionFilter" aria-label="Filter countries by region">
+      <option value="">All Regions</option>
+      <option value="Africa">Africa</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Americas">Americas</option>
+      <option value="Oceania">Oceania</option>
+    </select>
+  </header>
+    
+</body>
+</html>
