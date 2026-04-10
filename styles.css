@@ -56,3 +56,46 @@ body {
   display: none;
   z-index: 900;
 }
+
+#countryPanel {
+  position: fixed;
+  top: 50%;
+  right: -400px;
+  transform: translateY(-50%);
+  
+  width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  background: #0d0d0d;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+
+  padding: 20px;
+  border-radius: 12px 0 0 12px;
+  box-shadow: 0 0 20px #00ff00;
+
+  z-index: 1001;
+  transition: right 0.3s ease;
+}
+
+#countryPanel.active {
+  right: 0;
+}
+
+.terminal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+    background: transparent;
+    border: none;
+    color: #00ff00;
+
+ #countryDetails h2 {
+ margin-bottom: 10px;
+}
+
+#countryDetails p {
+  margin-bottom: 6px;
+}
