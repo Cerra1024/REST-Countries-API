@@ -88,9 +88,9 @@ body {
   top: 10px;
   right: 10px;
 
-    background: transparent;
-    border: none;
-    color: #00ff00;
+  background: transparent;
+  border: none;
+  color: #00ff00;
 
  #countryDetails h2 {
  margin-bottom: 10px;
@@ -98,4 +98,14 @@ body {
 
 #countryDetails p {
   margin-bottom: 6px;
+}
+
+#countryDetails button {
+  margin-top: 10px;
+  padding: 6px 10px;
+
+  background: transparent;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  cursor: pointer;
 }
