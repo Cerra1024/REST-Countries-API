@@ -26,9 +26,20 @@ const getRegionColor = (region) => {
 };
 
 
-const map = L.map('map').setView([20, 0], 2);
+const map = L.map('map', {
+  minZoom: 2,
+  maxZoom: 6,
+  worldCopyJump: false
+}).setView([20, 0], 2);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+map.setMaxBounds([
+  [-90, -180],
+  [90, 180]
+]);
+
+map.options.maxBoundsViscosity = 1.0;
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap & CartoDB',
 }).addTo(map);
 
