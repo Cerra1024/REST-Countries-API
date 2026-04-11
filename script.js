@@ -43,6 +43,8 @@ const getCountries = async () => {
 
         if (!country) return;
 
+        layer.countryData = country;
+
         layer.on("click", () => {
           document.getElementById("countryPanel").hidden = false;
           document.getElementById("overlay").style.display = "block";
