@@ -90,3 +90,30 @@ const getRegionColor = (region) => {
     default: return "#ccc";
   }
 };
+
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+
+  geoLayer.eachLayer(layer => {
+    const rawName = layer.feature.properties.name;
+    const name = nameFixes[rawName] || rawName;
+
+    if (name.toLowerCase().includes(value)) {
+      layer.setStyle({
+        fillOpacity: 1,
+        weight: 2
+      });
+
+      if (value.length > 0) {
+        map.fitBounds(layer.getBounds(), { maxZoom: 5 });
+      }
+    } else {
+      layer.setStyle({
+        fillOpacity: value ? 0.1 : 0.8,
+        weight: 1
+      });
+    }
+  });
+});
