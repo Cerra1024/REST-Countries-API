@@ -1,10 +1,37 @@
+
+let geoLayer;
+
 const GEO_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
+
+const nameFixes = {
+  "United States of America": "United States",
+  "Russian Federation": "Russia",
+  "Korea (Republic of)": "South Korea",
+  "Korea (Democratic People's Republic of)": "North Korea",
+  "Viet Nam": "Vietnam",
+  "Iran (Islamic Republic of)": "Iran",
+  "Syrian Arab Republic": "Syria",
+  "United Republic of Tanzania": "Tanzania"
+};
+
+const getRegionColor = (region) => {
+  switch (region) {
+    case "Africa": return "#f4a261";
+    case "Americas": return "#2a9d8f";
+    case "Asia": return "#e76f51";
+    case "Europe": return "#264653";
+    case "Oceania": return "#e9c46a";
+    default: return "#ccc";
+  }
+};
+
 
 const map = L.map('map').setView([20, 0], 2);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap & CartoDB',
 }).addTo(map);
+
 
 const getCountries = async () => {
   try {
@@ -16,17 +43,15 @@ const getCountries = async () => {
     const countries = await countriesRes.json();
     const geoData = await geoRes.json();
 
-    // match countries by name
     const countryMap = {};
     countries.forEach(c => {
       countryMap[c.name.common] = c;
     });
 
-    let geoLayer;
-
     geoLayer = L.geoJSON(geoData, {
       style: (feature) => {
-        const name = feature.properties.name;
+        const rawName = feature.properties.name;
+        const name = nameFixes[rawName] || rawName;
         const country = countryMap[name];
 
         return {
@@ -38,7 +63,8 @@ const getCountries = async () => {
       },
 
       onEachFeature: (feature, layer) => {
-        const name = feature.properties.name;
+        const rawName = feature.properties.name;
+        const name = nameFixes[rawName] || rawName;
         const country = countryMap[name];
 
         if (!country) return;
@@ -46,11 +72,16 @@ const getCountries = async () => {
         layer.countryData = country;
 
         layer.on("click", () => {
+          map.fitBounds(layer.getBounds(), {
+            padding: [20, 20],
+            maxZoom: 5
+          });
+
           document.getElementById("countryPanel").hidden = false;
           document.getElementById("overlay").style.display = "block";
 
           document.getElementById("countryDetails").innerHTML = `
-            <h2>${country.name.common}</h2>
+            <h2 id="countryName">${country.name.common}</h2>
             <p><strong>Region:</strong> ${country.region}</p>
             <p><strong>Capital:</strong> ${country.capital?.[0] || "N/A"}</p>
             <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
@@ -58,7 +89,6 @@ const getCountries = async () => {
           `;
         });
 
-       
         layer.on("mouseover", (e) => {
           e.target.setStyle({
             weight: 2,
@@ -76,22 +106,11 @@ const getCountries = async () => {
     }).addTo(map);
 
   } catch (err) {
-    console.error(err);
+    console.error("Error loading data:", err);
   }
 };
 
 getCountries();
-
-const getRegionColor = (region) => {
-  switch (region) {
-    case "Africa": return "#f4a261";
-    case "Americas": return "#2a9d8f";
-    case "Asia": return "#e76f51";
-    case "Europe": return "#264653";
-    case "Oceania": return "#e9c46a";
-    default: return "#ccc";
-  }
-};
 
 const searchInput = document.getElementById("search");
 
@@ -118,4 +137,36 @@ searchInput.addEventListener("input", () => {
       });
     }
   });
+});
+
+const regionFilter = document.getElementById("regionFilter");
+
+regionFilter.addEventListener("change", () => {
+  const selectedRegion = regionFilter.value;
+
+  geoLayer.eachLayer(layer => {
+    const country = layer.countryData;
+
+    if (!country) return;
+
+    const matched = selectedRegion === "" ||
+      country.region === selectedRegion;
+
+    layer.setStyle({
+      fillOpacity: matched ? 0.8 : 0.1
+    });
+  });
+});
+
+const closeBtn = document.getElementById("closePanel");
+const overlay = document.getElementById("overlay");
+
+closeBtn.addEventListener("click", () => {
+  document.getElementById("countryPanel").hidden = true;
+  overlay.style.display = "none";
+});
+
+overlay.addEventListener("click", () => {
+  document.getElementById("countryPanel").hidden = true;
+  overlay.style.display = "none";
 });
