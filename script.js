@@ -27,10 +27,16 @@ const getRegionColor = (region) => {
 
 
 const map = L.map('map', {
+  center: [20, 0],
+  zoom: 2,
   minZoom: 2,
-  maxZoom: 6,
-  worldCopyJump: false
-}).setView([20, 0], 2);
+  maxZoom: 4,
+  dragging: false,
+  scrollWheelZoom: false,
+  doubleClickZoom: false,
+  boxZoom: false,
+  keyboard: false
+});
 
 map.setMaxBounds([
   [-90, -180],
@@ -74,13 +80,18 @@ const getCountries = async () => {
       },
 
       onEachFeature: (feature, layer) => {
-        const rawName = feature.properties.name;
-        const name = nameFixes[rawName] || rawName;
+        const name = feature.properties.name;
         const country = countryMap[name];
 
         if (!country) return;
 
         layer.countryData = country;
+
+        layer.bindTooltip(feature.properties.name, {
+      permanent: false, // change to true if you want always visible
+      direction: "center",
+      className: "country-label"
+  });
 
         layer.on("click", () => {
           map.fitBounds(layer.getBounds(), {

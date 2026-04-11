@@ -112,3 +112,12 @@ body {
   color: #00ff00;
   cursor: pointer;
 }
+
+.country-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: #111;
+  background: rgba(255,255,255,0.7);
+  border: none;
+  padding: 2px;
+}
