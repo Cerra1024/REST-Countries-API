@@ -88,16 +88,15 @@ const getCountries = async () => {
         layer.countryData = country;
 
         layer.bindTooltip(feature.properties.name, {
-      permanent: false, // change to true if you want always visible
-      direction: "center",
+      permanent: false,
+      direction: "top",
       className: "country-label"
   });
 
         layer.on("click", () => {
-          map.fitBounds(layer.getBounds(), {
-            padding: [20, 20],
-            maxZoom: 5
-          });
+
+          layer.closeTooltip();
+          document.body.classList.add("panel-open");
 
           document.getElementById("countryPanel").hidden = false;
           document.getElementById("overlay").style.display = "block";
@@ -186,9 +185,11 @@ const overlay = document.getElementById("overlay");
 closeBtn.addEventListener("click", () => {
   document.getElementById("countryPanel").hidden = true;
   overlay.style.display = "none";
+  document.body.classList.remove("panel-open");
 });
 
 overlay.addEventListener("click", () => {
   document.getElementById("countryPanel").hidden = true;
   overlay.style.display = "none";
+  document.body.classList.remove("panel-open");
 });
