@@ -65,19 +65,15 @@ body {
   top: 50%;
   right: -400px;
   transform: translateY(-50%);
-  
   width: 350px;
   max-height: 80vh;
   overflow-y: auto;
-
   background: #0d0d0d;
   color: #00ff00;
   font-family: "Courier New", monospace;
-
   padding: 20px;
   border-radius: 12px 0 0 12px;
   box-shadow: 0 0 20px #00ff00;
-
   z-index: 1001;
   transition: right 0.3s ease;
 }
@@ -95,12 +91,20 @@ body {
   color: #00ff00;
 }
 
- #countryDetails h2 {
- margin-bottom: 10px;
+#countryDetails h2 {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
 }
 
 #countryDetails p {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+#countryDetails img {
+  display: block;
+  margin-top: 12px;
+  border: 1px solid #00ff00;
 }
 
 #countryDetails button {

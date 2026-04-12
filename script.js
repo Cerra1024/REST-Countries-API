@@ -98,8 +98,12 @@ const getCountries = async () => {
           layer.closeTooltip();
           document.body.classList.add("panel-open");
 
-          document.getElementById("countryPanel").hidden = false;
-          document.getElementById("overlay").style.display = "block";
+          const panel = document.getElementById("countryPanel");
+          const overlay = document.getElementById("overlay");
+
+          panel.hidden = false;
+          panel.classList.add("active");
+          overlay.style.display = "block";
 
           document.getElementById("countryDetails").innerHTML = `
             <h2 id="countryName">${country.name.common}</h2>
@@ -181,15 +185,18 @@ regionFilter.addEventListener("change", () => {
 
 const closeBtn = document.getElementById("closePanel");
 const overlay = document.getElementById("overlay");
+const panel = document.getElementById("countryPanel");
 
 closeBtn.addEventListener("click", () => {
-  document.getElementById("countryPanel").hidden = true;
+  panel.classList.remove("active");
+  panel.hidden = true;
   overlay.style.display = "none";
   document.body.classList.remove("panel-open");
 });
 
 overlay.addEventListener("click", () => {
-  document.getElementById("countryPanel").hidden = true;
+  panel.classList.remove("active");
+  panel.hidden = true;
   overlay.style.display = "none";
   document.body.classList.remove("panel-open");
 });
