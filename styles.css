@@ -18,19 +18,35 @@ body {
   overflow: hidden;
 }
 
-.topbar {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
 
+.topbar {
+  position: static; 
+  transform: none;
+  left: auto;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  background: white;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.brand h1 {
+  font-size: 1.4rem; 
+  color: #243642;
+}
+
+.brand p {
+  font-size: 0.85rem;
+  color: #5f6f78;
+}
+
+.controls {
   display: flex;
   gap: 10px;
-  background: white;
-  padding: 10px 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .topbar input,
@@ -41,12 +57,9 @@ body {
 }
 
 #map {
-  width: 100%;
-  max-width: 1000px;
-  height: 500px;
-  margin: 0 auto;
-  border-radius: 12px;
-  overflow: hidden;
+  height: calc(100vh - 80px); /* Fill the rest of the screen */
+  width: 95%;
+  margin: 10px auto;
 }
 
 #overlay {
@@ -124,3 +137,5 @@ body.panel-open .leaflet-tooltip {
 .leaflet-interactive:focus {
   outline: none;
 }
+
+

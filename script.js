@@ -16,15 +16,14 @@ const nameFixes = {
 
 const getRegionColor = (region) => {
   switch (region) {
-    case "Africa": return "#f4a261";
-    case "Americas": return "#2a9d8f";
-    case "Asia": return "#e76f51";
-    case "Europe": return "#264653";
-    case "Oceania": return "#e9c46a";
-    default: return "#ccc";
+    case "Africa": return "#FFBF00"; 
+    case "Americas": return "#10B981"; 
+    case "Asia": return "#F87171";   
+    case "Europe": return "#3B82F6"; 
+    case "Oceania": return "#FACC15";  
+    default: return "#94A3B8";         
   }
 };
-
 
 const map = L.map('map', {
   center: [20, 0],
@@ -80,8 +79,9 @@ const getCountries = async () => {
       },
 
       onEachFeature: (feature, layer) => {
-        const name = feature.properties.name;
-        const country = countryMap[name];
+      const rawName = feature.properties.name;
+      const name = nameFixes[rawName] || rawName;
+      const country = countryMap[name];
 
         if (!country) return;
 
