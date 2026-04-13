@@ -174,4 +174,25 @@ body.panel-open .leaflet-tooltip {
   outline: none;
 }
 
+.legend {
+  background: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  line-height: 1.4;
+}
 
+.legend div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.legend span {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  border-radius: 3px;
+}

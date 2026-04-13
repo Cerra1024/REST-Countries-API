@@ -13,6 +13,8 @@ const nameFixes = {
   "Syrian Arab Republic": "Syria",
   "United Republic of Tanzania": "Tanzania",
   "Ivory Coast": "Côte d'Ivoire",
+  "Democratic Republic of the Congo": "Congo (Democratic Republic of the)",
+  "eSwatini": "Eswatini",
 };
 
 const updateVisitedCount = () => {
@@ -95,7 +97,10 @@ const getCountries = async () => {
       const name = nameFixes[rawName] || rawName;
       const country = countryMap[name];
 
-        if (!country) return;
+        if (!country) {
+          console.log("Missing match:", rawName);
+          return;
+      }
 
         layer.countryData = country;
 
