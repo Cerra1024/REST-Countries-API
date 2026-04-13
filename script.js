@@ -100,19 +100,56 @@ const getCountries = async () => {
 
           const panel = document.getElementById("countryPanel");
           const overlay = document.getElementById("overlay");
+          const details = document.getElementById("countryDetails");
 
           panel.hidden = false;
           panel.classList.add("active");
           overlay.style.display = "block";
 
-          document.getElementById("countryDetails").innerHTML = `
-            <h2 id="countryName">${country.name.common}</h2>
-            <p><strong>Region:</strong> ${country.region}</p>
-            <p><strong>Capital:</strong> ${country.capital?.[0] || "N/A"}</p>
-            <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
-            <img src="${country.flags.svg}" alt="Flag of ${country.name.common}" width="100">
-          `;
-        });
+          const visitedCountries =
+            JSON.parse(localStorage.getItem("visitedCountries")) || [];
+
+          const isVisited = visitedCountries.includes(country.name.common);  
+
+
+          details.innerHTML = `
+    
+      <div class="country-text">
+        <h2 id="countryName">${country.name.common}</h2>
+        <p><strong>Region:</strong> ${country.region}</p>
+        <p><strong>Capital:</strong> ${country.capital?.[0] || "N/A"}</p>
+        <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+
+        <button id="visitedBtn" class="visited-btn">
+          ${isVisited ? "Visited ✓" : "Mark as Visited"}
+       </button>
+    </div>
+
+    <div class="country-flag-wrap">
+      <img src="${country.flags.svg}" alt="Flag of ${country.name.common}">
+    </div>
+  `;
+
+      const visitedBtn = document.getElementById("visitedBtn");
+
+      visitedBtn.addEventListener("click", () => {
+       let visited =
+        JSON.parse(localStorage.getItem("visitedCountries")) || [];
+
+        if (visited.includes(country.name.common)) {
+         visited = visited.filter(name => name !== country.name.common);
+      } else {
+      visited.push(country.name.common);
+    }
+
+    localStorage.setItem("visitedCountries", JSON.stringify(visited));
+
+    visitedBtn.textContent = visited.includes(country.name.common)
+      ? "Visited ✓"
+      : "Mark as Visited";
+    });
+
+   });
 
         layer.on("mouseover", (e) => {
           e.target.setStyle({
