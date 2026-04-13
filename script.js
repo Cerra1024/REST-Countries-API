@@ -40,12 +40,12 @@ const map = L.map('map', {
   center: [20, 0],
   zoom: 2,
   minZoom: 2,
-  maxZoom: 4,
-  dragging: false,
-  scrollWheelZoom: false,
-  doubleClickZoom: false,
-  boxZoom: false,
-  keyboard: false
+  maxZoom: 5,
+  dragging: true,
+  scrollWheelZoom: true,
+  doubleClickZoom: true,
+  boxZoom: true,
+  keyboard: true
 });
 
 map.setMaxBounds([
@@ -203,9 +203,7 @@ searchInput.addEventListener("input", () => {
         weight: 2
       });
 
-      if (value.length > 0) {
-        map.fitBounds(layer.getBounds(), { maxZoom: 5 });
-      }
+      
     } else {
       layer.setStyle({
         fillOpacity: value ? 0.1 : 0.8,
@@ -225,11 +223,14 @@ regionFilter.addEventListener("change", () => {
 
     if (!country) return;
 
-    const matched = selectedRegion === "" ||
-      country.region === selectedRegion;
+    const matched =
+      selectedRegion === "" || country.region === selectedRegion;
 
     layer.setStyle({
-      fillOpacity: matched ? 0.8 : 0.1
+      fillColor: getRegionColor(country.region), // 🔥 IMPORTANT
+      fillOpacity: matched ? 0.8 : 0.1,
+      weight: 1,
+      color: "#fff"
     });
   });
 });
