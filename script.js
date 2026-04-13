@@ -1,6 +1,6 @@
 
 let geoLayer;
-
+let selectedLayer = null;
 const GEO_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
 
 const nameFixes = {
@@ -11,7 +11,8 @@ const nameFixes = {
   "Viet Nam": "Vietnam",
   "Iran (Islamic Republic of)": "Iran",
   "Syrian Arab Republic": "Syria",
-  "United Republic of Tanzania": "Tanzania"
+  "United Republic of Tanzania": "Tanzania",
+  "Ivory Coast": "Côte d'Ivoire",
 };
 
 const updateVisitedCount = () => {
@@ -31,7 +32,7 @@ const getRegionColor = (region) => {
     case "Americas": return "#10B981"; 
     case "Asia": return "#F87171";   
     case "Europe": return "#3B82F6"; 
-    case "Oceania": return "#FACC15";  
+    case "Oceania": return "#8B5CF6";  
     default: return "#94A3B8";         
   }
 };
@@ -55,7 +56,7 @@ map.setMaxBounds([
 
 map.options.maxBoundsViscosity = 1.0;
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap & CartoDB',
 }).addTo(map);
 
@@ -105,6 +106,25 @@ const getCountries = async () => {
   });
 
         layer.on("click", () => {
+          if (selectedLayer) {
+            const previousCountry = selectedLayer.countryData;
+
+            selectedLayer.setStyle({
+              fillColor: getRegionColor(previousCountry.region),
+              fillOpacity: 0.8,
+              weight: 1,
+              color: "#fff"
+          });
+}
+
+layer.setStyle({
+  fillColor: getRegionColor(country.region),
+  fillOpacity: 1,
+  weight: 2,
+  color: "#243642"
+});
+
+selectedLayer = layer;
 
           layer.closeTooltip();
           document.body.classList.add("panel-open");
@@ -163,19 +183,6 @@ const getCountries = async () => {
 
    });
 
-        layer.on("mouseover", (e) => {
-          e.target.setStyle({
-            weight: 2,
-            fillOpacity: 1
-          });
-        });
-
-        layer.on("mouseout", (e) => {
-          e.target.setStyle({
-            weight: 1,
-            fillOpacity: 0.8
-          });
-        });
       }
     }).addTo(map);
 
