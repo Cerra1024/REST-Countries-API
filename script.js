@@ -14,6 +14,17 @@ const nameFixes = {
   "United Republic of Tanzania": "Tanzania"
 };
 
+const updateVisitedCount = () => {
+  const visited =
+    JSON.parse(localStorage.getItem("visitedCountries")) || [];
+
+  const countEl = document.getElementById("visitedCount");
+
+  if (countEl) {
+    countEl.textContent = `Visited: ${visited.length}`;
+  }
+};
+
 const getRegionColor = (region) => {
   switch (region) {
     case "Africa": return "#FFBF00"; 
@@ -147,6 +158,7 @@ const getCountries = async () => {
     visitedBtn.textContent = visited.includes(country.name.common)
       ? "Visited ✓"
       : "Mark as Visited";
+      updateVisitedCount();
     });
 
    });
@@ -173,6 +185,8 @@ const getCountries = async () => {
 };
 
 getCountries();
+
+updateVisitedCount();
 
 const searchInput = document.getElementById("search");
 
