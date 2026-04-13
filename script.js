@@ -259,3 +259,22 @@ overlay.addEventListener("click", () => {
   overlay.style.display = "none";
   document.body.classList.remove("panel-open");
 });
+
+const legend = L.control({ position: "bottomleft" });
+
+legend.onAdd = function () {
+  const div = L.DomUtil.create("div", "legend");
+
+  div.innerHTML = `
+    <div><span style="background:#FFBF00"></span> Africa</div>
+    <div><span style="background:#10B981"></span> Americas</div>
+    <div><span style="background:#F87171"></span> Asia</div>
+    <div><span style="background:#3B82F6"></span> Europe</div>
+    <div><span style="background:#8B5CF6"></span> Oceania</div>
+    <div><span style="background:#ccc"></span> No data</div>
+  `;
+
+  return div;
+};
+
+legend.addTo(map);
