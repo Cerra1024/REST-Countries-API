@@ -15,6 +15,8 @@ const nameFixes = {
   "Ivory Coast": "Côte d'Ivoire",
   "Democratic Republic of the Congo": "Congo (Democratic Republic of the)",
   "eSwatini": "Eswatini",
+  "Congo": "Republic of the Congo",
+  "Democratic Republic of the Congo": "DR Congo", 
 };
 
 const updateVisitedCount = () => {
