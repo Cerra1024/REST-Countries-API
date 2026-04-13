@@ -13,8 +13,16 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  background-color: #f4f7f9; 
+  color: white;
+}
+
+.main-content {
+  display: flex;
+  flex: 1; 
   overflow: hidden;
 }
 
@@ -57,9 +65,12 @@ body {
 }
 
 #map {
-  height: calc(100vh - 80px); /* Fill the rest of the screen */
-  width: 95%;
-  margin: 10px auto;
+  width: 100%;
+  max-width: 1000px;
+  height: 620px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 #overlay {
@@ -75,49 +86,65 @@ body {
 
 #countryPanel {
   position: fixed;
-  top: 50%;
-  right: -400px;
-  transform: translateY(-50%);
-  width: 350px;
-  max-height: 80vh;
-  overflow-y: auto;
-  background: #0d0d0d;
-  color: #00ff00;
-  font-family: "Courier New", monospace;
-  padding: 20px;
-  border-radius: 12px 0 0 12px;
-  box-shadow: 0 0 20px #00ff00;
+  left: 50%;
+  bottom: -260px;
+  transform: translateX(-50%);
+  width: min(94vw, 1320px);
+  min-height: 180px;
+  max-height: 260px;
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.98);
+  color: #243642;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
   z-index: 1001;
-  transition: right 0.3s ease;
+  transition: bottom 0.3s ease;
+  border: 1px solid #e3e8ec;
+  overflow-y: auto;
 }
 
 #countryPanel.active {
-  right: 0;
+  bottom: 0;
 }
 
 .terminal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 16px;
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #60717c;
+  font-size: 1.4rem;
+  cursor: pointer;
 }
 
+#countryDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-right: 30px;
+}
+
+
 #countryDetails h2 {
-  margin-bottom: 12px;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #243642;
 }
 
 #countryDetails p {
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #3f525e;
 }
 
 #countryDetails img {
-  display: block;
-  margin-top: 12px;
-  border: 1px solid #00ff00;
+  width: 110px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #d9e1e6;
 }
 
 #countryDetails button {
