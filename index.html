@@ -33,9 +33,48 @@
       <option value="Oceania">Oceania</option>
     </select>
 
+  <div class="game-dropdown">
+  <button id="gameModeBtn" class="game-mode-btn" type="button">
+    🎮 Game Mode ▾
+  </button>
+
+  <div id="gameMenu" class="game-menu" hidden>
+    <button id="guessFlagOption" type="button">Guess the Flag</button>
+    <button id="regionModeOption" type="button">Region Mode</button>
+  </div>
+  
+</div>  
 
   </div>
 </header>
+
+<section id="gamePanel" class="game-panel" hidden>
+  <div class="game-panel-header">
+    <div>
+      <p class="game-label">Map Challenge</p>
+      <h2 id="gameTitle">Choose a Game Mode</h2>
+    </div>
+
+    <button id="exitGameBtn" class="exit-game-btn" type="button">
+      Exit
+    </button>
+  </div>
+
+  <div id="gameSetup" class="game-setup">
+    <p>Select a game mode from the Game Mode dropdown.</p>
+  </div>
+
+  <div id="gameClue" class="game-clue"></div>
+
+  <div class="game-stats">
+    <span>Score: <strong id="score">0</strong></span>
+    <span>Round: <strong id="round">0</strong></span>
+    <span>Streak: <strong id="streak">0</strong></span>
+    <span id="timerWrap" hidden>Time: <strong id="timer">60</strong></span>
+  </div>
+
+  <p id="gameMessage" class="game-message"></p>
+  </section>
 
   <div id="map" role="region" aria-label="Interactive world map"></div>
 
